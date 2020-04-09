@@ -1,4 +1,4 @@
-libkeepalive - library for setting TCP keepalives options
+libkeepalive - library for setting TCP keepalive options
 
 # SYNOPSIS
 
@@ -27,18 +27,20 @@ using `LD_PRELOAD`. Socket options are set when the application calls
 `listen(2)`. Socket options for `accept`(2)'ed fd's are inherited from
 the listener socket.
 
-libkeepalive requires the program to be dynamically linked. libkeepalive
-will not work with statically linked programs or programs that directly
+libkeepalive requires the program to be dynamically linked and will
+not work with statically linked programs or programs that directly
 make syscalls.
 
 # ENVIRONMENT VARIABLES
 
-Setting these options to 0 will use the system default.
+Setting options to 0 will use the system default.
 
 ## COMMON VARIABLES
 
 `LIBKEEPALIVE_DEBUG`
-: Write errors to stdout (default: disabled).
+: Write errors to stdout (default: disabled). Set to any value to enable.
+
+    LIBKEEPALIVE_DEBUG=1
 
 `TCP_KEEPIDLE`
 : The number of seconds a connection is idle before TCP keepalives are sent
@@ -50,8 +52,8 @@ Setting these options to 0 will use the system default.
   `TCP_KEEPCNT` with `TCP_USER_TIMEOUT` (default: 9).
 
 `TCP_KEEPINTVL`
-: Interval in seconds a keepalive is retried if the peer is not
-  responding (default: 15).
+: Configures the interval in seconds a keepalive is retried if the peer
+  is not responding (default: 15).
 
 `TCP_USER_TIMEOUT`
 : Number in milliseconds before an inactive connection in ESTABLISHED
