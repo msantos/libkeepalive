@@ -1,4 +1,4 @@
-/* Copyright (c) 2019, Michael Santos <michael.santos@gmail.com>
+/* Copyright (c) 2019-2020, Michael Santos <michael.santos@gmail.com>
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -84,7 +84,7 @@ void _init(void) {
   err = dlerror();
 
   if (err != NULL)
-    (void)fprintf(stderr, "libkeepalive:dlsym (listen):%s\n", err);
+    (void)fprintf(stderr, "libkeepalive:dlsym (listen): %s\n", err);
 }
 
 static int keepalive(int sockfd) {
@@ -93,7 +93,7 @@ static int keepalive(int sockfd) {
   if (setsockopt(sockfd, SOL_SOCKET, SO_KEEPALIVE, &enable, sizeof(enable)) <
       0) {
     if (debug)
-      (void)fprintf(stderr, "libkeepalive:setsockopt(SO_KEEPALIVE)=1:%s\n",
+      (void)fprintf(stderr, "libkeepalive:setsockopt(SO_KEEPALIVE, 1): %s\n",
                     strerror(errno));
     return -1;
   }
@@ -102,8 +102,8 @@ static int keepalive(int sockfd) {
   if (tcp_keepidle > 0 && setsockopt(sockfd, IPPROTO_TCP, TCP_KEEPIDLE,
                                      &tcp_keepidle, sizeof(tcp_keepidle)) < 0) {
     if (debug)
-      (void)fprintf(stderr, "libkeepalive:setsockopt(TCP_KEEPIDLE):%s\n",
-                    strerror(errno));
+      (void)fprintf(stderr, "libkeepalive:setsockopt(TCP_KEEPIDLE, %d): %s\n",
+                    tcp_keepidle, strerror(errno));
   }
 #endif
 
@@ -111,8 +111,8 @@ static int keepalive(int sockfd) {
   if (tcp_keepcnt > 0 && setsockopt(sockfd, IPPROTO_TCP, TCP_KEEPCNT,
                                     &tcp_keepcnt, sizeof(tcp_keepcnt)) < 0) {
     if (debug)
-      (void)fprintf(stderr, "libkeepalive:setsockopt(TCP_KEEPCNT):%s\n",
-                    strerror(errno));
+      (void)fprintf(stderr, "libkeepalive:setsockopt(TCP_KEEPCNT, %d): %s\n",
+                    tcp_keepcnt, strerror(errno));
   }
 #endif
 
@@ -121,8 +121,8 @@ static int keepalive(int sockfd) {
       setsockopt(sockfd, IPPROTO_TCP, TCP_KEEPINTVL, &tcp_keepintvl,
                  sizeof(tcp_keepintvl)) < 0) {
     if (debug)
-      (void)fprintf(stderr, "libkeepalive:setsockopt(TCP_KEEPINTVL):%s\n",
-                    strerror(errno));
+      (void)fprintf(stderr, "libkeepalive:setsockopt(TCP_KEEPINTVL, %d): %s\n",
+                    tcp_keepintvl, strerror(errno));
   }
 #endif
 
@@ -131,8 +131,9 @@ static int keepalive(int sockfd) {
       setsockopt(sockfd, IPPROTO_TCP, TCP_USER_TIMEOUT, &tcp_user_timeout,
                  sizeof(tcp_user_timeout)) < 0) {
     if (debug)
-      (void)fprintf(stderr, "libkeepalive:setsockopt(TCP_USER_TIMEOUT):%s\n",
-                    strerror(errno));
+      (void)fprintf(stderr,
+                    "libkeepalive:setsockopt(TCP_USER_TIMEOUT, %d): %s\n",
+                    tcp_user_timeout, strerror(errno));
   }
 #endif
 
@@ -141,8 +142,9 @@ static int keepalive(int sockfd) {
       setsockopt(sockfd, IPPROTO_TCP, TCP_DEFER_ACCEPT, &tcp_defer_accept,
                  sizeof(tcp_defer_accept)) < 0) {
     if (debug)
-      (void)fprintf(stderr, "libkeepalive:setsockopt(TCP_DEFER_ACCEPT):%s\n",
-                    strerror(errno));
+      (void)fprintf(stderr,
+                    "libkeepalive:setsockopt(TCP_DEFER_ACCEPT, %d): %s\n",
+                    tcp_defer_accept, strerror(errno));
   }
 #endif
 
