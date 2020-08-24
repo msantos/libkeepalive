@@ -7,7 +7,7 @@ libkeepalive:
 		-Wconversion -Wshadow \
 		-Wpointer-arith -Wcast-qual \
 		-Wstrict-prototypes -Wmissing-prototypes \
-	 	-o $@.so $@.c -ldl \
+	 	-o $@.so keepalive.c $@.c -ldl \
 	 	-Wl,-z,relro,-z,now -Wl,-z,noexecstack
 
 libkeepalive_listen:
@@ -15,7 +15,7 @@ libkeepalive_listen:
 		-Wconversion -Wshadow \
 		-Wpointer-arith -Wcast-qual \
 		-Wstrict-prototypes -Wmissing-prototypes \
-	 	-o $@.so $@.c -ldl \
+	 	-o $@.so keepalive.c $@.c -ldl \
 	 	-Wl,-z,relro,-z,now -Wl,-z,noexecstack
 
 clean:
