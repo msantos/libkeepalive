@@ -1,4 +1,4 @@
-.PHONY: all clean
+.PHONY: all clean test
 
 all: libkeepalive libkeepalive_listen
 
@@ -20,3 +20,6 @@ libkeepalive_listen:
 
 clean:
 	-@rm libkeepalive.so libkeepalive_listen.so
+
+test:
+	@bats test
