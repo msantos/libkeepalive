@@ -1,5 +1,3 @@
-libkeepalive - library for setting TCP keepalive options
-
 # SYNOPSIS
 
 # client only 
@@ -13,10 +11,14 @@ LD\_PRELOAD=libkeepalive.so:libkeepalive_listen.so *COMMAND* *ARG* *...*
 
 # DESCRIPTION
 
+libkeepalive: set TCP keepalives options
+
 libkeepalive is a small library for setting various socket options
 required for enabling TCP keepalives. See:
 
 https://blog.cloudflare.com/when-tcp-sockets-refuse-to-die/
+
+http://codearcana.com/posts/2015/08/28/tcp-keepalive-is-a-lie.html
 
 `libkeepalive` works by intercepting calls to `connect(2)` using
 `LD_PRELOAD`. Before `connect(2)`ing, `setsockopt(2)` is called using
@@ -30,6 +32,21 @@ the listener socket.
 libkeepalive requires the program to be dynamically linked and will
 not work with statically linked programs or programs that directly
 make syscalls.
+
+libkeepalive is a small LD_PRELOAD library to enable TCP keepalives and
+TCP_USER_TIMEOUT on any sockets opened by dynamically linked applications,
+either outbound (connect(2), using libkeepalive.so) or inbound (listen(2),
+using libkeepalive_listen.so).
+
+The typical situation is that a long lasting connection is established
+across some network boundary. The connection is idle and some intermediary
+device drops the connection state. Enabling TCP keepalives will keep the
+connection active and, if the connection is dropped by the intermediary,
+force it to be closed.
+
+Alternatively, the connection can be dropped by the intermediary while
+there is still pending data. The TCP_USER_TIMEOUT setting will force
+the connection to be closed.
 
 # ENVIRONMENT VARIABLES
 
@@ -97,6 +114,12 @@ LD_PRELOAD=libkeepalive_listen.so strace -e trace=network nc -k -l 9090
 # in another shell
 LD_PRELOAD=libkeepalive.so strace -e trace=network nc 127.0.0.1 9090
 ```
+# ALTERNATIVES
+
+* [libkeepalive](http://libkeepalive.sourceforge.net/)
+
+  The original libkeepalive, the one included in your package system,
+  that this library unfortunately (and unintentionally) name squatted.
 
 # SEE ALSO
 
