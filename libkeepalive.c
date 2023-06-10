@@ -1,4 +1,4 @@
-/* Copyright (c) 2019-2020, Michael Santos <michael.santos@gmail.com>
+/* Copyright (c) 2019-2023, Michael Santos <michael.santos@gmail.com>
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -23,12 +23,12 @@
 #include "keepalive.h"
 
 void _init(void);
-int (*sys_connect)(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
+static int (*sys_connect)(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 #pragma GCC diagnostic ignored "-Wpedantic"
 int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 #pragma GCC diagnostic warning "-Wpedantic"
 
-keepalive_t opt = {0};
+static keepalive_t opt = {0};
 
 void _init(void) {
   const char *err;
