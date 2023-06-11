@@ -4,6 +4,7 @@ all: libkeepalive libkeepalive_listen
 
 libkeepalive:
 	$(CC) -Wall -Wextra -pedantic -D_GNU_SOURCE -nostartfiles -shared -fpic -fPIC \
+		-fvisibility=hidden \
 		-Wconversion -Wshadow \
 		-Wpointer-arith -Wcast-qual \
 		-Wstrict-prototypes -Wmissing-prototypes \
@@ -12,6 +13,7 @@ libkeepalive:
 
 libkeepalive_listen:
 	$(CC) -Wall -Wextra -pedantic -D_GNU_SOURCE -nostartfiles -shared -fpic -fPIC \
+		-fvisibility=hidden \
 		-Wconversion -Wshadow \
 		-Wpointer-arith -Wcast-qual \
 		-Wstrict-prototypes -Wmissing-prototypes \

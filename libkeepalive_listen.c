@@ -25,7 +25,7 @@
 void _init(void);
 static int (*sys_listen)(int sockfd, int backlog);
 #pragma GCC diagnostic ignored "-Wpedantic"
-int listen(int sockfd, int backlog);
+int __attribute__((visibility("default"))) listen(int sockfd, int backlog);
 #pragma GCC diagnostic warning "-Wpedantic"
 
 static keepalive_t opt = {0};
