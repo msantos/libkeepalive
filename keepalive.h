@@ -1,4 +1,4 @@
-/* Copyright (c) 2019-2020, Michael Santos <michael.santos@gmail.com>
+/* Copyright (c) 2019-2023, Michael Santos <michael.santos@gmail.com>
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -12,11 +12,11 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
+#include <errno.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/socket.h>
 #include <sys/types.h>
-#include <errno.h>
 
 #include <netinet/in.h>
 #include <netinet/tcp.h>
