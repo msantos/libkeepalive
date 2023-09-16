@@ -14,7 +14,7 @@ EOF
   TCP_KEEPIDLE='setsockopt\(4, SOL_TCP, TCP_KEEPIDLE, \[15\], 4\) = 0'
   TCP_KEEPCNT='setsockopt\(4, SOL_TCP, TCP_KEEPCNT, \[9\], 4\) = 0'
   TCP_KEEPINTVL='setsockopt\(4, SOL_TCP, TCP_KEEPINTVL, \[15\], 4\) = 0'
-  TCP_USER_TIMEOUT='setsockopt\(4, SOL_TCP, TCP_USER_TIMEOUT, \[135015\], 4\) = 0'
+  TCP_USER_TIMEOUT='setsockopt\(4, SOL_TCP, TCP_USER_TIMEOUT, \[150000\], 4\) = 0'
 
   [[ $output =~ $SO_KEEPALIVE ]]
   [[ $output =~ $TCP_KEEPIDLE ]]

@@ -72,7 +72,7 @@ void _init(void) {
   /* TCP_KEEPIDLE + TCP_KEEPINTVL * TCP_KEEPCNT */
   if (opt.tcp_user_timeout < 0)
     opt.tcp_user_timeout =
-        opt.tcp_keepidle + opt.tcp_keepintvl * opt.tcp_keepcnt * 1000;
+        (opt.tcp_keepidle + opt.tcp_keepintvl * opt.tcp_keepcnt) * 1000;
 
 #pragma GCC diagnostic ignored "-Wpedantic"
   sys_connect = dlsym(RTLD_NEXT, "connect");

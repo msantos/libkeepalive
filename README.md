@@ -88,14 +88,14 @@ is reached.
 The default `TCP_USER_TIMEOUT` is calculated using:
 
 ```
-  tcp_keepidle + tcp_keepintvl * tcp_keepcnt * 1000;
+tcp_keepidle + tcp_keepintvl * tcp_keepcnt
 ```
 
 Possible values:
 
-* 0: use system default
-* -1: derive from other settings (default)
-* >0: set to this value
+* `0`: use system default
+* `-1`: derive from other settings (default)
+* `>0`: set to this value
 
 ## libkeepalive
 
