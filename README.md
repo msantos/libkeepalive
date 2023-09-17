@@ -17,11 +17,13 @@ LD_PRELOAD=libkeepalive.so:libkeepalive_listen.so *COMMAND* *ARG* *...*
 libkeepalive: set TCP keepalives options
 
 libkeepalive is a small library for setting various socket options
-required for enabling TCP keepalives. See:
+required for enabling TCP keepalives. Inspired by:
 
 * https://blog.cloudflare.com/when-tcp-sockets-refuse-to-die/
 
 * http://codearcana.com/posts/2015/08/28/tcp-keepalive-is-a-lie.html
+
+* https://tech.instacart.com/the-vanishing-thread-and-postgresql-tcp-connection-parameters-93afc0e1208c
 
 `libkeepalive` works by intercepting calls to `connect(2)` using
 `LD_PRELOAD`. Before `connect(2)`ing, `setsockopt(2)` is called using
@@ -112,7 +114,7 @@ client. Number of seconds to wait (default: 0 (disabled))
 
 ## netcat
 
-```
+```shell
 ## Use strace to verify setsockopt(2) is called
 
 # run in a shell
@@ -120,6 +122,33 @@ LD_PRELOAD=libkeepalive_listen.so strace -e trace=network nc -k -l 9090
 
 # in another shell
 LD_PRELOAD=libkeepalive.so strace -e trace=network nc 127.0.0.1 9090
+```
+
+### `TCP_USER_TIMEOUT`
+
+```shell
+$ time LD_PRELOAD=libkeepalive.so TCP_USER_TIMEOUT=5000 nc -vvv 8.8.8.8 22
+nc: connect to 8.8.8.8 port 22 (tcp) failed: Connection timed out
+
+real    0m5.038s
+user    0m0.005s
+sys     0m0.008s
+```
+
+Using the settings described in https://tech.instacart.com/the-vanishing-thread-and-postgresql-tcp-connection-parameters-93afc0e1208c:
+
+```shell
+# keepalives: 1          # Interpreted as a boolean
+# keepalives_idle: 2     # seconds
+# keepalives_interval: 3 # seconds
+# keepalives_count: 3    # a count
+# tcp_user_timeout: 9000 # In milliseconds
+$ time LD_PRELOAD=libkeepalive.so TCP_KEEPIDLE=2 TCP_KEEPINTVL=3 TCP_KEEPCNT=3 TCP_USER_TIMEOUT=9000 nc -vvv 8.8.8.8 22
+nc: connect to 8.8.8.8 port 22 (tcp) failed: Connection timed out
+
+real    0m9.034s
+user    0m0.001s
+sys     0m0.010s
 ```
 
 # ALTERNATIVES
