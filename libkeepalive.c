@@ -58,7 +58,7 @@ void _init(void) {
     opt.tcp_keepidle = atoi(env_tcp_keepidle);
 
   if (env_tcp_keepcnt)
-    opt.tcp_keepidle = atoi(env_tcp_keepcnt);
+    opt.tcp_keepcnt = atoi(env_tcp_keepcnt);
 
   if (env_tcp_keepintvl)
     opt.tcp_keepintvl = atoi(env_tcp_keepintvl);
