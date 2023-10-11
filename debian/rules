@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+PREFIX = ./debian/libkeepalive
+LIBDIR = $(PREFIX)/usr/lib/
+
+%:
+	dh $@

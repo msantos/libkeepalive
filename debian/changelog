@@ -1,0 +1,5 @@
+libkeepalive-ng (0.1) unstable; urgency=low
+
+  * initial packaging
+
+ -- Simon Hyde <simon.hyde@bbc.co.uk>  Wed, 11 Oct 2023 14:00:00 +0100
