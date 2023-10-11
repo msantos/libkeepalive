@@ -10,11 +10,11 @@ EOF
 
   [ "$status" -ne 0 ]
 
-  SO_KEEPALIVE='setsockopt\(4, SOL_SOCKET, SO_KEEPALIVE, \[1\], 4\) = 0'
-  TCP_KEEPIDLE='setsockopt\(4, SOL_TCP, TCP_KEEPIDLE, \[15\], 4\) = 0'
-  TCP_KEEPCNT='setsockopt\(4, SOL_TCP, TCP_KEEPCNT, \[9\], 4\) = 0'
-  TCP_KEEPINTVL='setsockopt\(4, SOL_TCP, TCP_KEEPINTVL, \[15\], 4\) = 0'
-  TCP_USER_TIMEOUT='setsockopt\(4, SOL_TCP, TCP_USER_TIMEOUT, \[150000\], 4\) = 0'
+  SO_KEEPALIVE='setsockopt\([0-9]*, SOL_SOCKET, SO_KEEPALIVE, \[1\], 4\) = 0'
+  TCP_KEEPIDLE='setsockopt\([0-9]*, SOL_TCP, TCP_KEEPIDLE, \[15\], 4\) = 0'
+  TCP_KEEPCNT='setsockopt\([0-9]*, SOL_TCP, TCP_KEEPCNT, \[9\], 4\) = 0'
+  TCP_KEEPINTVL='setsockopt\([0-9]*, SOL_TCP, TCP_KEEPINTVL, \[15\], 4\) = 0'
+  TCP_USER_TIMEOUT='setsockopt\([0-9]*, SOL_TCP, TCP_USER_TIMEOUT, \[150000\], 4\) = 0'
 
   [[ $output =~ $SO_KEEPALIVE ]]
   [[ $output =~ $TCP_KEEPIDLE ]]
