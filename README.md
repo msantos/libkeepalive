@@ -12,6 +12,10 @@ LD_PRELOAD=libkeepalive_listen.so *COMMAND* *ARG* *...*
 
 LD_PRELOAD=libkeepalive.so:libkeepalive_listen.so *COMMAND* *ARG* *...*
 
+# client and/or server
+
+LD_PRELOAD=libkeepalive_socket.so *COMMAND* *ARG* *...*
+
 # DESCRIPTION
 
 libkeepalive: set TCP keepalives options
@@ -34,14 +38,19 @@ using `LD_PRELOAD`. Socket options are set when the application calls
 `listen(2)`. Socket options for `accept`(2)'ed fd's are inherited from
 the listener socket.
 
+`libkeepalive_socket` intercepts calls to `socket(2)` using
+`LD_PRELOAD`. Socket options are set after the application calls
+`socket(2)`.
+
 libkeepalive requires the program to be dynamically linked and will
 not work with statically linked programs or programs that directly
 make syscalls.
 
 libkeepalive is a small LD_PRELOAD library to enable TCP keepalives and
 TCP_USER_TIMEOUT on any sockets opened by dynamically linked applications,
-either outbound (connect(2), using libkeepalive.so) or inbound (listen(2),
-using libkeepalive_listen.so).
+either outbound (connect(2), using libkeepalive.so), inbound (listen(2),
+using libkeepalive_listen.so) or any INET/INET6 socket (socket(2),
+using libkeepalive_socket.so).
 
 The typical situation is that a long lasting connection is established
 across some network boundary. The connection is idle and some intermediary
@@ -99,7 +108,7 @@ Possible values:
 * `-1`: derive from other settings (default)
 * `>0`: set to this value
 
-## libkeepalive
+## libkeepalive, libkeepalive_socket
 
 `TCP_SYNCNT`
 : Number of SYN packets sent on `connect(2)` (default: 0 (system default))
@@ -122,6 +131,9 @@ LD_PRELOAD=libkeepalive_listen.so strace -e trace=network nc -k -l 9090
 
 # in another shell
 LD_PRELOAD=libkeepalive.so strace -e trace=network nc 127.0.0.1 9090
+
+# in another shell
+LD_PRELOAD=libkeepalive_socket.so strace -e trace=network nc 127.0.0.1 9090
 ```
 
 ### `TCP_USER_TIMEOUT`
