@@ -81,7 +81,7 @@ int keepalive(int sockfd, keepalive_t *opt) {
   }
 #endif
 
-#ifdef TCP_USER_SYNCNT
+#ifdef TCP_SYNCNT
   if (opt->tcp_syncnt > 0 &&
       setsockopt(sockfd, IPPROTO_TCP, TCP_SYNCNT, &opt->tcp_syncnt,
                  sizeof(opt->tcp_syncnt)) < 0) {
