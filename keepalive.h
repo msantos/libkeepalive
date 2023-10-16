@@ -29,6 +29,8 @@ typedef struct {
   int tcp_user_timeout;
   int tcp_syncnt;
   int tcp_defer_accept;
+  int tcp_maxseg;
+  int tcp_window_clamp;
 } keepalive_t;
 
 void keepalive_init(keepalive_t *opt);

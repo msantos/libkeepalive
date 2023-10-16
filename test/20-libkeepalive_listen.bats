@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-@test "libkeepalive_connect: socket options set" {
+@test "libkeepalive_listen: socket options set" {
   run env LD_PRELOAD=./libkeepalive_listen.so timeout 3 strace -e trace=network nc -l 0
   cat << EOF
 --- output

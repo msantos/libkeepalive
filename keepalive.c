@@ -27,6 +27,9 @@ void keepalive_init(keepalive_t *opt) {
 
   opt->tcp_syncnt = 0;       /* TCP_SYNCNT: system default */
   opt->tcp_defer_accept = 0; /* TCP_DEFER_ACCEPT: seconds */
+
+  opt->tcp_maxseg = 0;       /* TCP_MAXSEG: system default */
+  opt->tcp_window_clamp = 0; /* TCP_WINDOW_CLAMP: system default */
 }
 
 int keepalive(int sockfd, keepalive_t *opt) {
@@ -99,6 +102,27 @@ int keepalive(int sockfd, keepalive_t *opt) {
       (void)fprintf(stderr,
                     "libkeepalive:setsockopt(TCP_DEFER_ACCEPT, %d): %s\n",
                     opt->tcp_defer_accept, strerror(errno));
+  }
+#endif
+
+#ifdef TCP_MAXSEG
+  if (opt->tcp_maxseg > 0 &&
+      setsockopt(sockfd, IPPROTO_TCP, TCP_MAXSEG, &opt->tcp_maxseg,
+                 sizeof(opt->tcp_maxseg)) < 0) {
+    if (opt->debug)
+      (void)fprintf(stderr, "libkeepalive:setsockopt(TCP_MAXSEG, %d): %s\n",
+                    opt->tcp_maxseg, strerror(errno));
+  }
+#endif
+
+#ifdef TCP_WINDOW_CLAMP
+  if (opt->tcp_window_clamp > 0 &&
+      setsockopt(sockfd, IPPROTO_TCP, TCP_WINDOW_CLAMP, &opt->tcp_window_clamp,
+                 sizeof(opt->tcp_window_clamp)) < 0) {
+    if (opt->debug)
+      (void)fprintf(stderr,
+                    "libkeepalive:setsockopt(TCP_WINDOW_CLAMP, %d): %s\n",
+                    opt->tcp_window_clamp, strerror(errno));
   }
 #endif
 

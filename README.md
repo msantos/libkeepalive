@@ -88,6 +88,12 @@ terminating the connection. Note: see `tcp`(7) for interaction of
 : Configures the interval in seconds a keepalive is retried if the peer
 is not responding (default: 15).
 
+`TCP_MAXSEG`
+: Sets the maximum segment size (MSS) for outgoing packets.
+
+`TCP_WINDOW_CLAMP`
+: Limits the advertised window.
+
 `TCP_USER_TIMEOUT`
 : Number in milliseconds before an inactive connection in ESTABLISHED
 state is terminated.
