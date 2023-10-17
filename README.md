@@ -119,7 +119,7 @@ Possible values:
 `TCP_SYNCNT`
 : Number of SYN packets sent on `connect(2)` (default: 0 (system default))
 
-## libkeepalive_listen
+## libkeepalive_listen, libkeepalive_socket
 
 `TCP_DEFER_ACCEPT`
 : Avoid waking up the server process until data is sent by the

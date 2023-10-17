@@ -43,6 +43,7 @@ void _init(void) {
   char *env_tcp_keepintvl;
   char *env_tcp_user_timeout;
   char *env_tcp_syncnt;
+  char *env_tcp_defer_accept;
   char *env_tcp_maxseg;
   char *env_tcp_window_clamp;
 
@@ -52,6 +53,7 @@ void _init(void) {
   env_tcp_keepintvl = getenv("TCP_KEEPINTVL");
   env_tcp_user_timeout = getenv("TCP_USER_TIMEOUT");
   env_tcp_syncnt = getenv("TCP_SYNCNT");
+  env_tcp_defer_accept = getenv("TCP_DEFER_ACCEPT");
   env_tcp_maxseg = getenv("TCP_MAXSEG");
   env_tcp_window_clamp = getenv("TCP_WINDOW_CLAMP");
 
@@ -74,6 +76,9 @@ void _init(void) {
 
   if (env_tcp_syncnt)
     opt.tcp_syncnt = atoi(env_tcp_syncnt);
+
+  if (env_tcp_defer_accept)
+    opt.tcp_defer_accept = atoi(env_tcp_defer_accept);
 
   if (env_tcp_maxseg)
     opt.tcp_maxseg = atoi(env_tcp_maxseg);
